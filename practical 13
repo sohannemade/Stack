@@ -1,0 +1,108 @@
+#include<iostream>
+#define max 20                                    
+using namespace std;
+class Stack                                       
+{
+     public:
+	char data[max];
+	int top;
+
+	 Stack()                                     
+	 {
+		 top=-1;                               
+
+	 }
+	 int isFull()                               
+	 {
+		 if(top==(max-1))                      
+		 {
+			 return(1);                        
+		 }
+		 else
+		 {
+			 return(0);                        
+		 }
+	 }
+	 
+	 int isEmpty()                               
+	 {
+		 if(top==-1)                           
+		 {
+			 return(1);                       
+		 }
+			 else
+			 {
+				 return(0);               
+			 }
+
+	 }
+	 
+	 void push(char ch)                         
+	 {
+		 int i;
+		 i=isFull();
+		 if(i==0)                            
+		 {
+			 top++;                            
+			 data[top]=ch;                     
+		 }
+	 }
+	 void pop()                                
+	 {
+		 int i;
+
+		 i=isEmpty();                           
+		 if(i==0)                              
+		 {
+			 top--;                            
+		 }
+	 }
+ };
+ char findmax(char ch)                            
+
+ {
+	if(ch=='}')ch='{';
+	if(ch==')')ch='(';
+	if(ch==']')ch='[';
+	return ch;  
+
+ }
+
+ int main()
+ {
+	 char x[100];
+	 int i=0;                                   
+	 char y,z ;
+	 Stack st;                                   
+	 cout<<"\n Enter String : ";                  
+	 cin.getline(x,100);                        
+	 while(x[i]!='\0')                           
+	 {
+		 y=x[i];                           
+		 if(y=='('||y==')'||y=='{'||y=='}'||y=='['||y==']')   
+		 {
+			 if(y=='(')st.push(y);            
+			 else if(y=='{')st.push(y);     
+			 else if(y=='[')st.push(y);        
+
+			 else
+			 {
+				 z=findmax(y);                
+				 if(st.data[st.top]==z)      
+				 {
+					 st.pop();               
+				 }
+
+				 else
+			       st.push(z);                 
+
+			 }
+          }
+	 i++;                                   
+        }
+	 i=st.isEmpty();                         
+	 if(i==1)                                   
+ 	cout<<"\n String is Correct\n";             
+	 else
+	 cout<<"\n String is Incorrect\n";            
+	 return(0);
